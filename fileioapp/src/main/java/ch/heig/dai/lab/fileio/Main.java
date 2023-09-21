@@ -1,12 +1,12 @@
 package ch.heig.dai.lab.fileio;
 
 import java.io.File;
+import java.nio.charset.Charset;
 
 import ch.heig.dai.lab.fileio.m4dh4t.*;
 
 public class Main {
-    // *** TODO: Change this to your own name ***
-    private static final String newName = "Jean-Claude Van Damme";
+    private static final String newName = "m4dh4t";
 
     /**
      * Main method to transform files in a folder.
@@ -29,13 +29,52 @@ public class Main {
         }
         String folder = args[0];
         System.out.println("Application started, reading folder " + folder + "...");
-        // TODO: implement the main method here
+
+        // Create the necessary objects
+        FileExplorer fileExplorer = new FileExplorer(folder);
+        EncodingSelector encodingSelector = new EncodingSelector();
+        FileReaderWriter fileReaderWriter = new FileReaderWriter();
+        Transformer transformer = new Transformer(newName, 5);
 
         while (true) {
             try {
-                Thread.sleep(1000);
-                // TODO: implement the infinite loop here
+                // Try to get a new file from the folder
+                File file = fileExplorer.getNewFile();
+                // Try to determine the encoding of the file
+                Charset encoding = encodingSelector.getEncoding(file);
+                // Try to read the file, skip it if an error occurred
+                String content = fileReaderWriter.readFile(file, encoding);
 
+                if (file == null) {
+                    System.err.println("No more files to process, exiting...");
+                    System.exit(0);
+                } else if (content == null) {
+                    System.err.println("Could not read " + file.getName() + ", skipping...");
+                    continue;
+                }
+
+                // Transform the file content
+                String transformedContent = transformer.replaceChuck(content);
+                transformedContent = transformer.capitalizeWords(transformedContent);
+                transformedContent = transformer.wrapAndNumberLines(transformedContent);
+
+                // Write the result file
+                String resultFileName = file.getName() + ".processed";
+                File resultFile = new File(file.getParentFile(), resultFileName);
+                boolean resultFileWriteStatus = fileReaderWriter.writeFile(
+                    resultFile,
+                    transformedContent,
+                    encoding
+                );
+
+                // Output result file write status
+                if (resultFileWriteStatus) {
+                    System.out.println("File " + file.getName() + " processed successfully.");
+                } else {
+                    System.err.println("Error while writing file " + file.getName() + ".");
+                }
+
+                Thread.sleep(1000);
             } catch (Exception e) {
                 System.out.println("Exception: " + e);
             }
