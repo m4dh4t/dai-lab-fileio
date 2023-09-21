@@ -1,4 +1,3 @@
-// TODO change this to your own package instead of jehrensb ***
 package ch.heig.dai.lab.fileio.m4dh4t;
 
 import org.junit.jupiter.api.Test;
