@@ -22,12 +22,13 @@ public class Main {
      * i.e., with a suffixe ".processed".
      */
     public static void main(String[] args) {
-        // Read the folder with files to transform from the command line
-        if (args.length != 1 || !new File(args[0]).isDirectory()) {
-            System.out.println("You need to provide an existing folder as command line argument.");
+        // Read command line arguments
+        if (args.length != 2 || !new File(args[0]).isDirectory()) {
+            System.out.println("You need to provide two command line arguments: an existing folder and the number of words per line.");
             System.exit(1);
         }
         String folder = args[0];
+        int wordsPerLine = Integer.parseInt(args[1]);
         System.out.println("Application started, reading folder " + folder + "...");
 
         // Create the necessary objects
