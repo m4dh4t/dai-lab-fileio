@@ -137,7 +137,7 @@ Let's try it. The task will be to create a new folder for you in the source code
     git push
     ```
    Git will ask you to create a new branch on your remote repository. Use the command it suggests.
-5. Go to the GitHub page of your fork and create a pull request. The pull request will be visible in the original repository.
+5. Go to the GitHub page of your fork and create a pull request. The pull request will be visible in the original repository. In the comment of the pull request, include the text "**Closes #<id_of_the_issue>**". This will automatically close the issue that you've created on the original repository. 
 6. Go see the instructor to have your pull request reviewed.
 7. When the pull request is accepted, go to GitHub and sync your fork.
 8. In a terminal, switch to the main branch of your repository and pull the changes from your repository.
@@ -245,11 +245,11 @@ Develop the main class
 
 Once the components are finished and the unit tests are passing, you can develop the main class.
 
-The main class takes a folder name as command line argument. The folder contains the files to transform. To create this folder, unzip the file `chucknorris.zip` file anywhere on your computer, but not in the repository folder.
+The main class takes a folder name as command line argument. The folder contains the files to transform. To create this folder, unzip the file `jokes.zip` file anywhere on your computer, but not in the repository folder.
 
 Then follow the pull request workflow again, i.e. create a feature branch before starting to work on the main class.
 
-To test the main class, compile it with maven and run it with `java -jar target/fileioapp-1.0.jar <folder_name>`.
+To test the main class, compile it with maven and run it with `java -jar target/fileioapp-1.0.jar <folder_name> <words_per_line>`.
 
 When you are finished, add, commit and push your changes to your repository.
 
